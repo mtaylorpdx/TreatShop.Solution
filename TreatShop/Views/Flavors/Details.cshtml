@@ -1,3 +1,27 @@
 @{
   Layout = "_Layout";
 }
+
+@model TreatShop.Models.Flavor
+
+<h2>Flavor Details</h2>
+<hr>
+<h3>@Html.DisplayNameFor(model => model.FlavorName): @Html.DisplayFor(model => model.FlavorName)</h3>
+
+@if(@Model.Treats.Count == 0)
+{
+  <p>This flavor does not belong to any type of treat</p>
+}
+else
+{
+  <ul>
+  @foreach(var join in Model.Treats)
+  {
+    <li>Treat name: @join.Treat.TreatName</li>
+  }
+  </ul>
+}
+
+<p class="btn btn-success">@Html.ActionLink("Back to list", "Index")</p>
+<p class="btn btn-success">@Html.ActionLink("Edit Title", "Edit", new { id = Model.FlavorId })</p>
+<p class="btn btn-success">@Html.ActionLink("Delete Title", "Delete", new { id = Model.FlavorId })</p>

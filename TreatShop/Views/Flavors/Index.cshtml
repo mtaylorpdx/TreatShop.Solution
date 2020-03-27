@@ -1,3 +1,27 @@
 @{
   Layout = "_Layout";
 }
+
+@using TreatShop.Models;
+@model IEnumerable<TreatShop.Models.Flavor>
+
+<h1>Flavors for @User.Identity.Name</h1>
+<hr />
+
+@if (Model.Any())
+{
+  @foreach (Flavor flavor in Model)
+  {
+    <div class="card1" style="width:50%;">
+      <div class="card-body">
+        <p>@Html.ActionLink($"{flavor.FlavorName}", "Details", new { id = flavor.FlavorId })</p>
+    </div>
+  </div>
+  }
+} 
+else
+{
+  <h3>No flavors have been added yet.</h3>
+}
+
+<p class="btn btn-success" id="new-flavor">@Html.ActionLink("Add new flavor", "Create")</p>
