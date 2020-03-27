@@ -20,7 +20,7 @@ namespace TreatShop.Controllers
       _db = db;
     }
 
-    public async ActionResult Index()
+    public ActionResult Index()
     {
       List<Treat> model = _db.Treats.ToList();
       return View(model);
@@ -32,7 +32,7 @@ namespace TreatShop.Controllers
     }
 
     [HttpPost]
-    public async ActionResult Create(Treat treat)
+    public ActionResult Create(Treat treat)
     {
       _db.Treats.Add(treat);
       _db.SaveChanges();

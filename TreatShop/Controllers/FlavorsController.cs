@@ -20,9 +20,8 @@ namespace TreatShop.Controllers
       _db = db;
     }
 
-    public async ActionResult Index()
+    public ActionResult Index()
     {
-      List<Flavor> model = _db.Flavors.Include(flavors => flavors.Treat).ToList();
       return View();
     }
 
@@ -33,15 +32,12 @@ namespace TreatShop.Controllers
     }
 
     [HttpPost]
-    public async ActionResult Create(Flavor flavor, int TreatId)
+    public ActionResult Create(Flavor flavor, int TreatId)
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      flavor.User = currentUser;
       _db.Flavors.Add(flavor);
       if (TreatId != 0)
       {
-        _db.Book.Add(new Book() { TreatId = TreatId, FlavorId = flavor.FlavorId });
+        _db.TreatFlavor.Add(new TreatFlavor() { TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -68,7 +64,7 @@ namespace TreatShop.Controllers
     {
       if (TreatId != 0)
       {
-        _db.Book.Add(new Book() { TreatId = TreatId, FlavorId = flavor.FlavorId });
+        _db.TreatFlavor.Add(new TreatFlavor() { TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
       _db.Entry(flavor).State = EntityState.Modified;
       _db.SaveChanges();
@@ -87,7 +83,7 @@ namespace TreatShop.Controllers
     {
       if (TreatId != 0)
       {
-        _db.Book.Add(new Book() { TreatId = TreatId, FlavorId = flavor.FlavorId });
+        _db.TreatFlavor.Add(new TreatFlavor() { TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
