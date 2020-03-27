@@ -20,7 +20,7 @@ namespace TreatShop.Controllers
       _db = db;
     }
 
-    public async Task<ActionResult> Index()
+    public async ActionResult Index()
     {
       List<Treat> model = _db.Treats.ToList();
       return View(model);
@@ -32,11 +32,8 @@ namespace TreatShop.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(Treat treat)
+    public async ActionResult Create(Treat treat)
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      treat.User = currentUser;
       _db.Treats.Add(treat);
       _db.SaveChanges();
       return RedirectToAction("Index");
