@@ -27,8 +27,8 @@ namespace TreatShop.Controllers
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
-      var userFlavor = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id);
-      return View(userFlavor);
+      var userFlavors = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id);
+      return View(userFlavors);
     }
 
     public ActionResult Create()
