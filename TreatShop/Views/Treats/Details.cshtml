@@ -20,7 +20,7 @@ else
   <ul>
     @foreach(var join in Model.Flavors)
     {
-      <p>@Html.ActionLink(@join.Flavor.TreatName, "Details", "Flavors", new { id = join.Flavor.FlavorId })</p>
+      <p>@Html.ActionLink(@join.Flavor.FlavorName, "Details", "Flavors", new { id = join.Flavor.FlavorId })</p>
       <hr>
     }
     </ul>
