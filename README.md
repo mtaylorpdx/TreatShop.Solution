@@ -6,7 +6,7 @@
 
 ## Description
 
-_Using a database, the user can create a list of treats and their flavors._
+_Using a database, the user can create a stored list of treats and their flavors, modifying them and viewing their many-to-many relationship in the database._
 
 ## Behavior Driven Development
 | Behavior | Input | Output |
