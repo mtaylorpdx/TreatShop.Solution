@@ -1,3 +1,10 @@
 @{
   Layout = "_Layout";
 }
+
+<div class="btn-toolbar">
+  <p>@Html.ActionLink("Create a new account", "Index", "Account", null,  new { @class = "btn btn-success btn-large menu-btn" })</p>
+  <p>@Html.ActionLink("Add an treat", "Create", "Treats", null,  new { @class = "btn btn-success btn-large menu-btn" })</p>
+  <p>@Html.ActionLink("Add a flavor", "Create", "Flavors",  null, new { @class = "btn btn-success btn-large menu-btn" })</p>
+</div>
+<br>
