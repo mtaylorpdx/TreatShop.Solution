@@ -11,17 +11,23 @@ using System.Security.Claims;
 
 namespace TreatShop.Controllers
 {
+  [Authorize]
   public class TreatsController : Controller
   {
     private readonly TreatShopContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public TreatsController(TreatShopContext db)
+    public TreatsController(UserManager<ApplicationUser> userManager, TreatShopContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userTreats = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id);
       List<Treat> model = _db.Treats.ToList();
       return View(model);
     }
@@ -32,8 +38,11 @@ namespace TreatShop.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Treat treat)
+    public async Task<ActionResult> Create(Treat treat)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      treat.User = currentUser;
       _db.Treats.Add(treat);
       _db.SaveChanges();
       return RedirectToAction("Index");
