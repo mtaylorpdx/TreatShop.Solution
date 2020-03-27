@@ -181,7 +181,11 @@ namespace TreatShop.Migrations
 
                     b.Property<string>("FlavorName");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("FlavorId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Flavors");
                 });
@@ -193,7 +197,11 @@ namespace TreatShop.Migrations
 
                     b.Property<string>("TreatName");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("TreatId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Treats");
                 });
@@ -207,11 +215,15 @@ namespace TreatShop.Migrations
 
                     b.Property<int>("TreatId");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("TreatFlavorId");
 
                     b.HasIndex("FlavorId");
 
                     b.HasIndex("TreatId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("TreatFlavor");
                 });
@@ -261,6 +273,20 @@ namespace TreatShop.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("TreatShop.Models.Flavor", b =>
+                {
+                    b.HasOne("TreatShop.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("TreatShop.Models.Treat", b =>
+                {
+                    b.HasOne("TreatShop.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("TreatShop.Models.TreatFlavor", b =>
                 {
                     b.HasOne("TreatShop.Models.Flavor", "Flavor")
@@ -272,6 +298,10 @@ namespace TreatShop.Migrations
                         .WithMany("Flavors")
                         .HasForeignKey("TreatId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TreatShop.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
