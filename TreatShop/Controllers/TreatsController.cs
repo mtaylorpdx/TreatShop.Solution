@@ -34,6 +34,7 @@ namespace TreatShop.Controllers
 
     public ActionResult Create()
     {
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "FlavorName");
       return View();
     }
 
@@ -64,8 +65,10 @@ namespace TreatShop.Controllers
     }
 
     [HttpPost]
-    public ActionResult Edit(Treat treat)
+    public async Task<ActionResult> Edit(Treat treat)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
       _db.Entry(treat).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
