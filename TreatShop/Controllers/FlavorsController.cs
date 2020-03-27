@@ -11,19 +11,24 @@ using System.Security.Claims;
 
 namespace TreatShop.Controllers
 {
+  [Authorize]
   public class FlavorsController : Controller
   {
     private readonly TreatShopContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public FlavorsController(TreatShopContext db)
+    public FlavorsController(UserManager<ApplicationUser> userManager, TreatShopContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      List<Flavor> model = _db.Flavors.Include(flavors => flavors.Treats).ToList();
-      return View(model);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userFlavor = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id);
+      return View(userFlavor);
     }
 
     public ActionResult Create()
@@ -33,8 +38,11 @@ namespace TreatShop.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Flavor flavor, int TreatId)
+    public async Task<ActionResult> Create(Flavor flavor, int TreatId)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      flavor.User = currentUser;
       _db.Flavors.Add(flavor);
       if (TreatId != 0)
       {
@@ -101,6 +109,15 @@ namespace TreatShop.Controllers
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(flavors => flavors.FlavorId == id);
       _db.Flavors.Remove(thisFlavor);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public ActionResult DeleteTreat(int joinId)
+    {
+      var joinEntry = _db.TreatFlavor.FirstOrDefault(entry => entry.TreatFlavorId == joinId);
+      _db.TreatFlavor.Remove(joinEntry);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
