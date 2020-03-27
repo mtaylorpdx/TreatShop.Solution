@@ -12,6 +12,8 @@
         @Html.Label("New Treat's Name: ")
         @Html.TextBoxFor(model => model.TreatName, new { @class = "form-control" , required = "required"})
         <br>
+        @Html.Label("Current Flavor Options : ") @Html.DropDownList("FlavorId")
+        <br>
         <input type="submit" value="Add treat" class="btn btn-outline-success my-2 my-sm-0">
       }
     </div>
