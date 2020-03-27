@@ -22,7 +22,8 @@ namespace TreatShop.Controllers
 
     public ActionResult Index()
     {
-      return View();
+      List<Flavor> model = _db.Flavors.Include(flavors => flavors.Treats).ToList();
+      return View(model);
     }
 
     public ActionResult Create()
