@@ -11,8 +11,3 @@ body {
 h1{
   font-family: 'Paytone One', sans-serif;
 }
-
-.splash-btn {
-  display: flex;
-  justify-content: center;
-}
