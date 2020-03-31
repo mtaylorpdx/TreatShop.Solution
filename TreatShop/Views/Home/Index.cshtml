@@ -2,23 +2,26 @@
   Layout = "_Layout";
 }
 
-@using TreatShop.Models
+@using TreatShop.Models;
 
 <hr>
 <h1>Pierre's Sweet and Savory Treat Emporium</h1>
 <br>
 
 <div class="row">
-  <div class="col-md-4 offset-md-4">
-    <div class="card1" style="width:50%;">
-      <div class="card-body">
-
-      </div>
+  <div class="col-md-4 offset-md-2">
+    <div class="card-body">
+      <p>@Html.ActionLink("Add a new treat", "Create", "Treats", null,  new { @class="btn btn-outline-success splash-btn"})</p>
+      @foreach (Treat treat in Model)
+      {
+        <p>@Html.ActionLink($"{treat.TreatName}", "Details", new { id = treat.TreatId })</p>
+        <hr>
+      }
     </div>
   </div>
-</div>
-
-<div class="btn-toolbar">
-  <p>@Html.ActionLink("Add a new treat", "Create", "Treats", null,  new { @class="btn btn-outline-success splash-btn"})</p>
-  <p>@Html.ActionLink("Add a new flavor", "Create", "Flavors",  null, new { @class="btn btn-outline-success splash-btn"})</p>
+  <div class="col-md-4">
+      <div class="card-body">
+          <p>@Html.ActionLink("Add a new flavor", "Create", "Flavors",  null, new { @class="btn btn-outline-success splash-btn"})</p>
+      </div>
+    </div>
 </div>
