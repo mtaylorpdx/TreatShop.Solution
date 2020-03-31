@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using TreatShop.Models;
@@ -18,6 +17,7 @@ namespace TreatShop.Controllers
     [HttpGet("/")]
     public ActionResult Index()
     {
+      ViewBag.Flavors = _db.Flavors.ToList();
       return View(_db.Treats.ToList());
     }
   }
