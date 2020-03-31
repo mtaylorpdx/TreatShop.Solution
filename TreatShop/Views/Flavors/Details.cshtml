@@ -14,12 +14,13 @@
 }
 else
 {
-  <ul>
+  <h4>Treats attached to this flavor:</h4>
+  <hr>
   @foreach(var join in Model.Treats)
   {
-    <li>Treat name: @join.Treat.TreatName</li>
+    <p>Treat name: @join.Treat.TreatName</p>
+    <hr>
   }
-  </ul>
 }
 
 <p class="btn btn-outline-success my-2 my-sm-0">@Html.ActionLink("Back to list", "Index")</p>

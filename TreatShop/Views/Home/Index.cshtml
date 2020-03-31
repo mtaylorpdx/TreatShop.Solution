@@ -1,11 +1,24 @@
 @{
   Layout = "_Layout";
 }
+
+@using TreatShop.Models
+
 <hr>
 <h1>Pierre's Sweet and Savory Treat Emporium</h1>
 <br>
+
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div class="card1" style="width:50%;">
+      <div class="card-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="btn-toolbar">
-  <p>@Html.ActionLink("Accounts", "Index", "Account", null,  new { @class="btn btn-outline-success my-2 my-sm-0"})</p>
-  <p>@Html.ActionLink("Add a new treat", "Create", "Treats", null,  new { @class="btn btn-outline-success my-2 my-sm-0"})</p>
-  <p>@Html.ActionLink("Add a new flavor", "Create", "Flavors",  null, new { @class="btn btn-outline-success my-2 my-sm-0"})</p>
+  <p>@Html.ActionLink("Add a new treat", "Create", "Treats", null,  new { @class="btn btn-outline-success splash-btn"})</p>
+  <p>@Html.ActionLink("Add a new flavor", "Create", "Flavors",  null, new { @class="btn btn-outline-success splash-btn"})</p>
 </div>

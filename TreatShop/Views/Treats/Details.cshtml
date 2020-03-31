@@ -14,18 +14,17 @@
 }
 else
 {
- <h4>Flavors attached to this treat:</h4> <hr>
+ <h4>Flavors attached to this treat:</h4>
+ <hr>
   <div class="col-md-8 offset-m-2">
-  <ul>
     @foreach(var join in Model.Flavors)
     {
       <p>@Html.ActionLink(@join.Flavor.FlavorName, "Details", "Flavors", new { id = join.Flavor.FlavorId })</p>
       <hr>
     }
-    </ul>
   </div>
 }
 
-<p>@Html.ActionLink("Back to treats", "Index")</p>
-<p>@Html.ActionLink("Edit treats", "Edit", new { id = Model.TreatId })</p>
-<p>@Html.ActionLink("Delete treat", "Delete", new { id = Model.TreatId })</p>
+<p class="btn btn-outline-success my-2 my-sm-0">@Html.ActionLink("Back to treats", "Index")</p>
+<p class="btn btn-outline-success my-2 my-sm-0">@Html.ActionLink("Edit this treat", "Edit", new { id = Model.TreatId })</p>
+<p class="btn btn-outline-success my-2 my-sm-0">@Html.ActionLink("Delete this treat", "Delete", new { id = Model.TreatId })</p>

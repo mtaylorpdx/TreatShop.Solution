@@ -10,17 +10,13 @@
 
 @using (Html.BeginForm())
 {
-    @Html.HiddenFor(model => model.FlavorId)
+  @Html.HiddenFor(model => model.FlavorId)
 
-    @Html.Label("Flavor: ")
-    @Html.EditorFor(model => model.FlavorName)
-    <br>
+  @Html.Label("Flavor: ")
+  @Html.EditorFor(model => model.FlavorName)
+  <br>
 
-    @Html.Label("Select treat")
-    @Html.DropDownList("TreatId")
-
-
-    <input type="submit" value="Save" class="btn btn-outline-success my-2 my-sm-0"/>
+  <input type="submit" value="Save" class="btn btn-outline-success my-2 my-sm-0"/>
 }
 
 <p>@Html.ActionLink("Back to list", "Index")</p>
