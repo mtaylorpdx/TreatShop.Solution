@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+
+@model TreatShop.Models.Flavor
+
+<div class ="col-md-8 offset-md-2">
+  <div class="card">
+    <div class="card-body">
+
+      @using (Html.BeginForm())
+      {
+        @Html.HiddenFor(model => model.FlavorId)
+
+        <h2>Add a treat to the flavor: @Html.DisplayFor(model => model.FlavorName)</h2>
+        <hr>
+
+        @Html.Label("Current Treat Options : ") @Html.DropDownList("TreatId")
+        <br>
+        <input type="submit" value="Add flavor" class="btn btn-outline-success my-2 my-sm-0">
+      }
+    </div>
+  </div>
+</div>
